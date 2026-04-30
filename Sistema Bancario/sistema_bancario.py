@@ -17,7 +17,7 @@ while True:
      pergunta = int(input('Digite oque deseja fazer:' \
      '\n[1] Criar uma conta' \
      '\n[2] Acessar a Minha conta' \
-     '\n>>>>'))
+     '\nSelecione a opção: '))
      if pergunta == 1:
           funções.limpar_terminal()
           print('='*20,'Crie um usuario e uma senha','='*20)
@@ -72,7 +72,7 @@ while True:
                  '\n[1] Depositar' \
                  '\n[2] Acessar os Investimentos'
                  '\n[3] Sair'
-                 '\n>>>'))
+                 '\nSelecione a opção: '))
                  if pergunta2 == 1:
                       deposito = float(input('Quanto deseja transferir para sua conta?'))
                       print('Transferindo...')
@@ -90,7 +90,7 @@ while True:
                       pergunta3 = int(input('Deseja investir no Dolar hoje?' \
                       '\n[1] Sim' \
                       '\n[2] Não'
-                      '\n>>>'))
+                      '\nSelecione a opção: '))
                       if pergunta3 == 1:
                         print('Perfeito!')
                         sleep(1)
@@ -100,20 +100,31 @@ while True:
                         valor_investir = float(input('Quanto deseja investir (em Reais)? R$'))
                         if valor_investir > deposito:
                               print('\033[31mSaldo insuficiente para este investimento!\033[m')
-                              sleep(2)
+                              sleep(1)
                         elif valor_investir <= 0:
                               print('\033[31mValor inválido!\033[m')
-                              sleep(2)
+                              sleep(1)
                         else:
+                              deposito -= valor_investir
                               compra_dolar = valor_investir / float(cotacao)
                               investimento += compra_dolar
+                              conexao = sqlite3.connect('login.db')
+                              cursor = conexao.cursor()
+                              cursor.execute('''
+                                UPDATE usuarios 
+                                SET saldo = ?, investido = ? 
+                                WHERE login = ?
+                            ''', (deposito, investimento, usuario_login))
+                              conexao.commit()
+                              conexao.close()
                               print(f'\n\033[32mInvestimento realizado!\033[m')
+                              print(f'\033[32mInvestimento salvo no banco com sucesso!\033[m')
                               print(f'Você comprou: US${compra_dolar:.2f}')
-                              sleep(3)
+                              sleep(1)
                               pergunta6 = int(input('Deseja sair?' \
                                                  '\n[1] Sim' \
                                                  '\n[2] Não' \
-                                                 '\n>>>'))
+                                                 '\nSelecione a opção: '))
                               if pergunta6 == 1:
                                      funções.limpar_terminal()
                                      break
@@ -123,7 +134,7 @@ while True:
                            pergunta4 = int(input('Deseja sair?' \
                                                  '\n[1] Sim' \
                                                  '\n[2] Não' \
-                                                 '\n>>>'))
+                                                 '\nSelecione a opção: '))
                            if pergunta4 == 1:
                                 funções.limpar_terminal()
                                 break
