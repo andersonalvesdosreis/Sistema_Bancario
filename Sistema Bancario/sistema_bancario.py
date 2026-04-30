@@ -112,34 +112,31 @@ while True:
                       '\n[2] Não'
                       '\n>>>'))
                       if pergunta3 == 1:
-                           print('Perfeito!')
-                           sleep(1)
-                           limpar_terminal()
-                           print(f'{login}:')
-                           print(f'Saldo: R${deposito}')
-                           pergunta5 = float(input('Quanto deseja investir? '))
-                           investimento = deposito/cotacao
-                           sleep(2)
-                           if investimento < 0:
-                                print('Saldo insuficiente!')
-                                break
-                           else:
-                                print(f'Investimento Realizado com Sucesso!')
-                                sleep(1)
-                                limpar_terminal()
-                                print('='*20,'Sistema Bancario','='*20)
-                                print(f'{login}:')
-                                print(f'Valor na conta: R${deposito}')
-                                print(f'Valor do Dolar hoje: R${cotacao}')
-                                print(f'Valor investido no Dolar: R${investimento}')
-                                print('\n')
-                                pergunta6 = int(input('Deseja sair?' \
+                        print('Perfeito!')
+                        sleep(1)
+                        limpar_terminal()
+                        print(f'Usuário: {usuario_login}')
+                        print(f'Saldo disponível: R${deposito:.2f}')
+                        valor_investir = float(input('Quanto deseja investir (em Reais)? R$'))
+                        if valor_investir > deposito:
+                              print('\033[31mSaldo insuficiente para este investimento!\033[m')
+                              sleep(2)
+                        elif valor_investir <= 0:
+                              print('\033[31mValor inválido!\033[m')
+                              sleep(2)
+                        else:
+                              compra_dolar = valor_investir / float(cotacao)
+                              investimento += compra_dolar
+                              print(f'\n\033[32mInvestimento realizado!\033[m')
+                              print(f'Você comprou: US${compra_dolar:.2f}')
+                              sleep(3)
+                              pergunta6 = int(input('Deseja sair?' \
                                                  '\n[1] Sim' \
                                                  '\n[2] Não' \
                                                  '\n>>>'))
-                                if pergunta6 == 1:
+                              if pergunta6 == 1:
                                      break
-                                else:
+                              else:
                                      continue
                       else:
                            pergunta4 = int(input('Deseja sair?' \
