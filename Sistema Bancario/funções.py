@@ -1,12 +1,14 @@
 import os
-def senha_forte(senha_aleatoria):
-        procurando_caracter = len(senha_aleatoria.strip())
-        tentar_novamente = str(input('Senha errada tente novamente: '))
-        if len(tentar_novamente.strip()) > 8:
-             return tentar_novamente
-        else:
+def senha_forte(senha_digitada):
+    while True:
+        # Se a senha for maior que 8, ele retorna ela e sai da função
+        if len(senha_digitada.strip()) > 8:
             print('\033[32mSenha Forte!\033[m')
-            return senha_aleatoria
+            return senha_digitada
+        else:
+            # Se for menor, ele avisa e pede outra vez dentro do loop
+            print('\033[31mSenha Fraca!\033[m Digite mais de 8 caracteres!')
+            senha_digitada = str(input('Tente novamente: '))
 def email(email_nao_encontrado):
     if not '@gmail.com' in email_nao_encontrado:
         print('\033[31memail nao encontrado\033[m')

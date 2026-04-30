@@ -39,7 +39,7 @@ while True:
             ''')
           cursor.execute('INSERT INTO usuarios (login, senha) VALUES (?, ?)', (login, senha))
           print("\033[32mConta criada e salva no banco de dados com sucesso!\033[m")
-          cursor.execute('UPDATE usuarios SET saldo = ? WHERE login = ?', (deposito, usuario_login))
+          cursor.execute('UPDATE usuarios SET saldo = ? WHERE login = ?', (deposito, login))
           conexao.commit()
           conexao.close()
           print("Dados salvos com sucesso!")
@@ -64,6 +64,8 @@ while True:
         conexao.close()
         
         if usuario_encontrado:
+            deposito = usuario_encontrado[3]
+            investimento = usuario_encontrado[4]
             funções.limpar_terminal()
             print(f'\033[32mBem-vindo de volta, {usuario_login}!\033[m')
             print('\n')
