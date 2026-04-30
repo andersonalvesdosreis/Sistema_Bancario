@@ -135,6 +135,7 @@ while True:
                                                  '\n[2] Não' \
                                                  '\n>>>'))
                               if pergunta6 == 1:
+                                     limpar_terminal()
                                      break
                               else:
                                      continue
@@ -144,6 +145,7 @@ while True:
                                                  '\n[2] Não' \
                                                  '\n>>>'))
                            if pergunta4 == 1:
+                                limpar_terminal()
                                 break
                            else:
                                 continue
