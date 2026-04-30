@@ -64,10 +64,11 @@ while True:
         conexao.close()
         
         if usuario_encontrado:
+            login_sessao = usuario_encontrado[1]
             deposito = usuario_encontrado[3]
             investimento = usuario_encontrado[4]
             funções.limpar_terminal()
-            print(f'\033[32mBem-vindo de volta, {usuario_login}!\033[m')
+            print(f'\033[32mBem-vindo de volta, {login_sessao}!\033[m')
             print('\n')
             while True:
                  pergunta2 = int(input('Digite oque deseja fazer:' \
@@ -97,7 +98,7 @@ while True:
                         print('Perfeito!')
                         sleep(1)
                         funções.limpar_terminal()
-                        print(f'Usuário: {usuario_login}')
+                        print(f'Usuário logado: {login_sessao}') 
                         print(f'Saldo disponível: R${deposito:.2f}')
                         valor_investir = float(input('Quanto deseja investir (em Reais)? R$'))
                         if valor_investir > deposito:
