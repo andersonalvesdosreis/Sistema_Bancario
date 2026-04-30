@@ -52,14 +52,17 @@ while True:
           conexao = sqlite3.connect('login.db')
           cursor = conexao.cursor()
           cursor.execute('''
-              CREATE TABLE IF NOT EXISTS usuarios (
-                  id INTEGER PRIMARY KEY AUTOINCREMENT,
-                  login TEXT NOT NULL,
-                  senha TEXT NOT NULL
-              )
-          ''')
+               CREATE TABLE IF NOT EXISTS usuarios (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    login TEXT NOT NULL,
+                    senha TEXT NOT NULL,
+                    saldo REAL DEFAULT 0,
+                    investido REAL DEFAULT 0
+                )
+            ''')
           cursor.execute('INSERT INTO usuarios (login, senha) VALUES (?, ?)', (login, senha))
           print("\033[32mConta criada e salva no banco de dados com sucesso!\033[m")
+          cursor.execute('UPDATE usuarios SET saldo = ? WHERE login = ?', (deposito, usuario_login))
           conexao.commit()
           conexao.close()
           print("Dados salvos com sucesso!")
