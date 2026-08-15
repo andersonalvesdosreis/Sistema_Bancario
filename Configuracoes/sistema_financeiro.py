@@ -33,7 +33,7 @@ def pergunta_dep(saldo):
         return depositar(saldo=saldo, dep=valor)
     
     print('OK! Depósito cancelado.')
-    return saldo  # Retorna o saldo original se cancelar
+    return saldo 
 
 def pergunta_saque(saldo):
     if pedir_sim_ou_nao('Deseja sacar? '):
@@ -41,4 +41,4 @@ def pergunta_saque(saldo):
         return saque(saldo=saldo, saq=valor)
     
     print('Ok! Saque cancelado.')
-    return saldo  # Retorna o saldo original se cancelar
+    return saldo  

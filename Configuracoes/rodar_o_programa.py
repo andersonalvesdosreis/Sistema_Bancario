@@ -1,15 +1,15 @@
 import funcoes
-from funcoes import limpar_terminal
-import sistema_financeiro
 import classe
+import banco_de_dados
 
+cliente_num1 = classe.ContaBancaria(
+    nome=funcoes.nome(),
+    email=funcoes.email(),
+    senha=funcoes.senha_forte(),
+    saldo=funcoes.saldo()
+)
 
-cliente_num1 = classe.ContaBancaria(email=funcoes.email(), 
-                                    senha=funcoes.senha_forte(), 
-                                    nome=funcoes.nome(), 
-                                    saldo=funcoes.saldo())
-
-print(cliente_num1.tabela_com_menu())
+banco_de_dados.salvar_cliente(cliente_num1)
 
 while True:
     funcoes.limpar_terminal()
@@ -19,9 +19,11 @@ while True:
     
     if opcao == '1':
         cliente_num1.solicitar_deposito()
+        banco_de_dados.atualizar_saldo(cliente_num1.email, cliente_num1.saldo)
         input("\nPressione ENTER para voltar ao menu...")
     elif opcao == '2':
         cliente_num1.solicitar_saque()
+        banco_de_dados.atualizar_saldo(cliente_num1.email, cliente_num1.saldo)
         input("\nPressione ENTER para voltar ao menu...")
     elif opcao == '0':
         funcoes.limpar_terminal()
