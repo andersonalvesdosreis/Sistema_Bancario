@@ -10,10 +10,8 @@ class ContaBancaria:
         self.saldo = saldo
         self.nome = nome
 
-    def pergunta
-
-
-
+    def pergunta_d(self):
+        
 
     def tabela(self):
         conteudo = (
