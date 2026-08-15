@@ -19,9 +19,13 @@ def saque(saldo, saq):
         return saldo
     if saq > saldo:
         print(f"\033[31mSaldo insuficiente para sacar R${saq:.2f}\033[m")
-        return saldo  # Retorna o saldo intacto em vez de uma string
+        return saldo  
     
     return saldo - saq
+
+
+#Função principal:
+
 
 def pergunta_dep(saldo):
     if pedir_sim_ou_nao('Deseja depositar? '):

@@ -1,19 +1,14 @@
-import funcoes
 from rich.panel import Panel
-from rich import print
 
 
 class ContaBancaria:
-    def __init__(self,email , senha ,saldo=0 , nome=''):
-        self.email = funcoes.email(email)
-        self.senha = funcoes.senha_forte(senha)
-        self.saldo = saldo
+    def __init__(self,email , senha ,nome , saldo):
+        self.email = email
+        self.senha = senha
+        self.saldo = float(saldo)
         self.nome = nome
 
-    def pergunta_d(self):
-        
-
-    def tabela(self):
+    def painel(self):
         conteudo = (
             f'Cliente: {self.nome}\nEmail: {self.email}\nSaldo: {self.saldo}'
         )
@@ -21,4 +16,6 @@ class ContaBancaria:
             conteudo,
             title= '[bold blue]Sistema Bancario[/bold blue]:'
         )
-        
+        return client
+
+   
