@@ -59,6 +59,7 @@ def saldo():
             
             limpar_terminal()
             print('\033[32mSaldo cadastrado com sucesso!\033[m')
+            limpar_terminal()
             return saldo_digitado
         except ValueError:
             limpar_terminal()

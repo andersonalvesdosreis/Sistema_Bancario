@@ -1,6 +1,3 @@
-from rich.panel import Panel
-
-
 class ContaBancaria:
     def __init__(self,email , senha ,nome , saldo):
         self.email = email
@@ -8,14 +5,11 @@ class ContaBancaria:
         self.saldo = float(saldo)
         self.nome = nome
 
-    def painel(self):
-        conteudo = (
-            f'Cliente: {self.nome}\nEmail: {self.email}\nSaldo: {self.saldo}'
-        )
-        client = Panel(
-            conteudo,
-            title= '[bold blue]Sistema Bancario[/bold blue]:'
-        )
-        return client
-
-   
+    def tabela_moldura(self):
+     return (
+        "┌──────────────┬────────────────────────────┐\n"
+        f"│ {'Cliente':<12} │ {self.nome:<26} │\n"
+        f"│ {'E-mail':<12} │ {self.email:<26} │\n"
+        f"│ {'Saldo':<12} │ R$ {self.saldo:<23.2f} │\n"
+        "└──────────────┴────────────────────────────┘"
+    )
