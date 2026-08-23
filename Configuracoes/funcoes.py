@@ -39,11 +39,11 @@ def senha_forte():
             return senha_digitada
         if 4 > pontos > 2:
             limpar_terminal()
-            print('\033[31mSenha Media!\033[m Digite Caracteres Especiais!')
-            senha_digitada = str(input('Tente novamente: '))
+            print('\033[31mSenha Media(Vulneravel)!\033[m')
+            return senha_digitada
         if pontos <= 2:
             limpar_terminal()
-            print('\033[31mSenha Media!\033[m Digite Caracteres Especiais!')
+            print('\033[31mSenha Fraca!\033[m Digite Caracteres Especiais!')
             senha_digitada = str(input('Tente novamente: '))            
 
 def nome():
