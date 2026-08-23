@@ -9,7 +9,7 @@ Um sistema de gerenciamento de contas bancárias executado via linha de comando 
 * **Validação Rígida de Entradas:**
   * **Nome:** Mínimo de 3 caracteres, apenas letras e formatação automática em *Capital Case*.
   * **E-mail:** Verificação do formato correto.
-  * **Senha:** Validação de força (mínimo de 8 caracteres).
+  * **Senha:** Validação de força (Caracteres Especiais, Letras Maiusculas, etc..).
   * **Valores:** Tratamento de exceções contra digitação de letras e impedimento de saldos/operações negativas.
 * **Interface Dinâmica:** Limpeza automática do terminal a cada instrução para simular a navegação de um software profissional.
 * **Persistência de Dados:** Integração com SQLite para armazenamento permanente dos clientes e atualização instantânea de saldos.
@@ -21,7 +21,7 @@ Um sistema de gerenciamento de contas bancárias executado via linha de comando 
 
 ```text
 Sistema_Bancario/
-├── main.py                # Ponto de entrada: orquestra a execução e o loop principal
+├── __main__.py                # Ponto de entrada: orquestra a execução e o loop principal
 ├── classe.py              # Classe ContaBancaria e renderização do painel/menu
 ├── funcoes.py             # Captura de dados, validações e controle de tela
 ├── sistema_financeiro.py  # Regras de negócio para saques e depósitos
