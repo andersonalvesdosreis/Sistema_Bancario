@@ -22,16 +22,29 @@ def email():
 def senha_forte():
     limpar_terminal()
     senha_digitada = str(input('Digite sua senha: '))
+    pontos = 0
+    if len(senha_digitada) >= 8:
+        pontos += 1
+    if any(c.isupper() for c in senha_digitada):
+        pontos += 1
+    if any(c.isdigit() for c in senha_digitada):
+        pontos += 1
+    if any(c in "!@#$%&" for c in senha_digitada):
+        pontos += 1
     
     while True:
-        if len(senha_digitada.strip()) > 8:
+        if pontos == 4:
             limpar_terminal()
             print('\033[32mSenha Forte!\033[m')
             return senha_digitada
-        
-        limpar_terminal()
-        print('\033[31mSenha Fraca!\033[m Digite mais de 8 caracteres!')
-        senha_digitada = str(input('Tente novamente: '))
+        if 4 > pontos > 2:
+            limpar_terminal()
+            print('\033[31mSenha Media!\033[m Digite Caracteres Especiais!')
+            senha_digitada = str(input('Tente novamente: '))
+        if pontos <= 2:
+            limpar_terminal()
+            print('\033[31mSenha Media!\033[m Digite Caracteres Especiais!')
+            senha_digitada = str(input('Tente novamente: '))            
 
 def nome():
     limpar_terminal()
@@ -64,3 +77,4 @@ def saldo():
         except ValueError:
             limpar_terminal()
             print('\033[31mEntrada inválida!\033[m Digite apenas números (ex: 1000 ou 250.50).')
+
