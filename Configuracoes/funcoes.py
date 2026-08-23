@@ -22,17 +22,17 @@ def email():
 def senha_forte():
     limpar_terminal()
     senha_digitada = str(input('Digite sua senha: '))
-    pontos = 0
-    if len(senha_digitada) >= 8:
-        pontos += 1
-    if any(c.isupper() for c in senha_digitada):
-        pontos += 1
-    if any(c.isdigit() for c in senha_digitada):
-        pontos += 1
-    if any(c in "!@#$%&" for c in senha_digitada):
-        pontos += 1
     
     while True:
+        pontos = 0
+        if len(senha_digitada) >= 8:
+            pontos += 1
+        if any(c.isupper() for c in senha_digitada):
+            pontos += 1
+        if any(c.isdigit() for c in senha_digitada):
+            pontos += 1
+        if any(c in "!@#$%&" for c in senha_digitada):
+            pontos += 1
         if pontos == 4:
             limpar_terminal()
             print('\033[32mSenha Forte!\033[m')

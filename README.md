@@ -21,7 +21,7 @@ Um sistema de gerenciamento de contas bancárias executado via linha de comando 
 
 ```text
 Sistema_Bancario/
-├── __main__.py                # Ponto de entrada: orquestra a execução e o loop principal
+├── __main__.py            # Ponto de entrada: orquestra a execução e o loop principal
 ├── classe.py              # Classe ContaBancaria e renderização do painel/menu
 ├── funcoes.py             # Captura de dados, validações e controle de tela
 ├── sistema_financeiro.py  # Regras de negócio para saques e depósitos
