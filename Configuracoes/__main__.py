@@ -27,6 +27,8 @@ def main():
         cliente_num1.solicitar_saque()
         banco_de_dados.atualizar_saldo(cliente_num1.email, cliente_num1.saldo)
         input("\nPressione ENTER para voltar ao menu...")
+     elif opcao == '3':
+        
      elif opcao == '0':
         funcoes.limpar_terminal()
         print("Sessão finalizada. Até logo!")
