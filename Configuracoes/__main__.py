@@ -1,6 +1,7 @@
 import funcoes
 import classe
 import banco_de_dados
+import sistema_financeiro
 
 def main():
     banco_de_dados.conectar()
@@ -12,7 +13,13 @@ def main():
         saldo=funcoes.saldo()
     )
 
+    # Verificação de crédito antes de liberar a conta e salvar no banco
+    if not sistema_financeiro.comprovacao_de_credito(cliente_num1.saldo, limite_minimo=1000.0):
+        input("\nAcesso negado. Pressione ENTER para encerrar...")
+        return
+
     banco_de_dados.salvar_cliente(cliente_num1)
+    input("\nPressione ENTER para acessar o painel...")
 
     while True:
         funcoes.limpar_terminal()
