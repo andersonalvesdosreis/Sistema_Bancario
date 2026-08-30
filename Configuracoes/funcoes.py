@@ -7,10 +7,19 @@ def email() -> str:
     limpar_terminal()
     while True:
         email_digitado = input('Digite seu e-mail: ').strip().lower()
-        if '@' in email_digitado and '.' in email_digitado.split('@')[-1]:
-            limpar_terminal()
-            print('\033[32mE-mail válido!\033[m')
-            return email_digitado
+        
+        partes = email_digitado.split('@')
+        
+        # Exige exatamente 1 caractere '@' e nome de usuário não vazio
+        if len(partes) == 2 and len(partes[0]) > 0:
+            usuario, dominio = partes
+            partes_dominio = dominio.split('.')
+            
+            # Exige que o domínio tenha ponto, nome do servidor e extensão válida (ex: 'com', 'br')
+            if len(partes_dominio) >= 2 and all(len(p) > 0 for p in partes_dominio):
+                limpar_terminal()
+                print('\033[32mE-mail válido!\033[m')
+                return email_digitado
         
         limpar_terminal()
         print('\033[31mE-mail inválido! Digite um formato válido (ex: usuario@dominio.com)\033[m')
