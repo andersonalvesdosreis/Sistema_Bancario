@@ -3,78 +3,66 @@ import os
 def limpar_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
-def email():
+def email() -> str:
     limpar_terminal()
-    email_digitado = str(input('Digite seu e-mail: '))
-    
-    while '@gmail.com' not in email_digitado:
-        limpar_terminal()
-        print('\033[31mEmail inválido / não encontrado\033[m')
-        email_digitado = str(input('Login errado, tente novamente: \033[35m'))
-        print(end='\033[m')
-    
-    limpar_terminal()
-    print('\033[32mEmail encontrado!\033[m')
-    return email_digitado
-
-
-def senha_forte():
-    limpar_terminal()
-    senha_digitada = str(input('Digite sua senha: '))
-    
     while True:
+        email_digitado = input('Digite seu e-mail: ').strip().lower()
+        if '@' in email_digitado and '.' in email_digitado.split('@')[-1]:
+            limpar_terminal()
+            print('\033[32mE-mail válido!\033[m')
+            return email_digitado
+        
+        limpar_terminal()
+        print('\033[31mE-mail inválido! Digite um formato válido (ex: usuario@dominio.com)\033[m')
+
+def senha_forte() -> str:
+    limpar_terminal()
+    while True:
+        senha_digitada = input('Digite sua senha: ')
         pontos = 0
+        
         if len(senha_digitada) >= 8:
             pontos += 1
         if any(c.isupper() for c in senha_digitada):
             pontos += 1
         if any(c.isdigit() for c in senha_digitada):
             pontos += 1
-        if any(c in "!@#$%&" for c in senha_digitada):
+        if any(c in "!@#$%&*" for c in senha_digitada):
             pontos += 1
-        if pontos == 4:
-            limpar_terminal()
-            print('\033[32mSenha Forte!\033[m')
-            return senha_digitada
-        if 4 > pontos > 2:
-            limpar_terminal()
-            print('\033[31mSenha Media(Vulneravel)!\033[m')
-            return senha_digitada
-        if pontos <= 2:
-            limpar_terminal()
-            print('\033[31mSenha Fraca!\033[m Digite Caracteres Especiais!')
-            senha_digitada = str(input('Tente novamente: '))            
 
-def nome():
+        if pontos >= 3:
+            limpar_terminal()
+            print('\033[32mSenha aceita!\033[m')
+            return senha_digitada
+        else:
+            limpar_terminal()
+            print('\033[31mSenha fraca!\033[m Use ao menos 8 caracteres, letras maiúsculas, números e símbolos (!@#$%&*).')
+
+def nome() -> str:
     limpar_terminal()
-    nome_digitado = str(input('Digite seu nome: ')).strip().title()
-    
-    # Valida se tem pelo menos 3 caracteres e se contém apenas letras/espaços
-    while len(nome_digitado) < 3 or not nome_digitado.replace(' ', '').isalpha():
+    while True:
+        nome_digitado = input('Digite seu nome: ').strip().title()
+        if len(nome_digitado) >= 3 and nome_digitado.replace(' ', '').isalpha():
+            limpar_terminal()
+            print('\033[32mNome validado!\033[m')
+            return nome_digitado
+        
         limpar_terminal()
-        print('\033[31mNome inválido!\033[m Digite um nome válido (mínimo 3 letras, sem números).')
-        nome_digitado = str(input('Tente novamente: ')).strip().title()
-    
-    limpar_terminal()
-    print('\033[32mNome validado!\033[m')
-    return nome_digitado
+        print('\033[31mNome inválido!\033[m Mínimo 3 letras, sem números.')
 
-def saldo():
+def saldo() -> float:
     limpar_terminal()
     while True:
         try:
             saldo_digitado = float(input('Digite o saldo inicial: R$ '))
             if saldo_digitado < 0:
                 limpar_terminal()
-                print('\033[31mSaldo inválido!\033[m O saldo inicial não pode ser negativo.')
+                print('\033[31mSaldo inválido!\033[m O saldo não pode ser negativo.')
                 continue
             
             limpar_terminal()
             print('\033[32mSaldo cadastrado com sucesso!\033[m')
-            limpar_terminal()
             return saldo_digitado
         except ValueError:
             limpar_terminal()
-            print('\033[31mEntrada inválida!\033[m Digite apenas números (ex: 1000 ou 250.50).')
-
+            print('\033[31mEntrada inválida!\033[m Digite apenas números.')

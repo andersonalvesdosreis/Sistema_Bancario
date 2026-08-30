@@ -14,14 +14,53 @@ def comprovacao_de_credito(saldo_ou_renda: float, limite_minimo: float = 1000.0)
         return False
 
 
-saldo_usuario = 1500.0
+def pedir_sim_ou_nao(mensagem: str) -> bool:
+    while True:
+        resposta = input(f"{mensagem} (s/n): ").strip().lower()
+        if resposta in ['s', 'sim']:
+            return True
+        elif resposta in ['n', 'nao', 'não']:
+            return False
+        print("\033[31mOpção inválida! Digite 's' para sim ou 'n' para não.\033[m")
 
-if comprovacao_de_credito(saldo_usuario, limite_minimo=1000.0):
-    print("Acesso ao banco liberado com sucesso!")
-else:
-    print("Acesso negado. Procure seu gerente.")
+def depositar(saldo: float, dep: float) -> float:
+    if dep <= 0:
+        print("\033[31mValor de depósito deve ser maior que zero!\033[m")
+        return saldo
+    return saldo + dep
 
-def comprar_acao(saldo: float | int, num_da_acao: int) -> float:
+def saque(saldo: float, saq: float) -> float:
+    if saq <= 0:
+        print("\033[31mValor de saque inválido!\033[m")
+        return saldo
+    if saq > saldo:
+        print(f"\033[31mSaldo insuficiente para sacar R$ {saq:.2f}\033[m")
+        return saldo  
+    return saldo - saq
+
+def pergunta_dep(saldo: float) -> float:
+    if pedir_sim_ou_nao('Deseja depositar?'):
+        while True:
+            try:
+                valor = float(input('Digite o valor: R$ '))
+                return depositar(saldo, valor)
+            except ValueError:
+                print("\033[31mValor inválido! Digite apenas números.\033[m")
+    print('Depósito cancelado.')
+    return saldo 
+
+def pergunta_saque(saldo: float) -> float:
+    if pedir_sim_ou_nao('Deseja sacar?'):
+        while True:
+            try:
+                valor = float(input('Digite o valor: R$ '))
+                return saque(saldo, valor)
+            except ValueError:
+                print("\033[31mValor inválido! Digite apenas números.\033[m")
+    print('Saque cancelado.')
+    return saldo  
+
+def comprar_acao(saldo: float, num_da_acao: int) -> float:
     precos = {
         1: 38.50, # PETR4
         2: 36.20, # ITUB4
@@ -34,8 +73,13 @@ def comprar_acao(saldo: float | int, num_da_acao: int) -> float:
         print("Opção de ação inválida!")
         return saldo
 
-    quantidade = int(input('Deseja comprar quantas? '))
-    
+    while True:
+        try:
+            quantidade = int(input('Deseja comprar quantas ações? '))
+            break
+        except ValueError:
+            print("\033[31mDigite um número inteiro válido!\033[m")
+
     if quantidade <= 0:
         print("A quantidade deve ser maior que zero!")
         return saldo
@@ -45,54 +89,9 @@ def comprar_acao(saldo: float | int, num_da_acao: int) -> float:
 
     if saldo >= custo_total:
         saldo -= custo_total
-        print(f"Compra realizada com sucesso! Custo total: R$ {custo_total:.2f}")
-        print(f"Saldo restante: R$ {saldo:.2f}")
+        print(f"\033[32mCompra realizada com sucesso! Custo total: R$ {custo_total:.2f}\033[m")
+        print(f"Novo saldo: R$ {saldo:.2f}")
     else:
-        print(f"Saldo insuficiente! Você precisa de R$ {custo_total:.2f}, mas tem R$ {saldo:.2f}")
+        print(f"\033[31mSaldo insuficiente! Você precisa de R$ {custo_total:.2f}, mas tem R$ {saldo:.2f}\033[m")
 
     return saldo
-
-def pedir_sim_ou_nao(mensagem):
-    while True:
-        resposta = input(f"{mensagem} (s/n): ").strip().lower()
-        if resposta in ['s', 'sim']:
-            return True
-        elif resposta in ['n', 'nao', 'não']:
-            return False
-        print("\033[31mOpção inválida! Digite apenas 's' (sim) ou 'n' (não).\033[m")
-
-def depositar(saldo, dep):
-    if dep <= 0:
-        print("\033[31mValor de depósito deve ser maior que zero!\033[m")
-        return saldo
-    return saldo + dep
-
-def saque(saldo, saq):
-    if saq <= 0:
-        print("\033[31mValor de saque inválido!\033[m")
-        return saldo
-    if saq > saldo:
-        print(f"\033[31mSaldo insuficiente para sacar R${saq:.2f}\033[m")
-        return saldo  
-    
-    return saldo - saq
-
-
-#Função principal:
-
-
-def pergunta_dep(saldo):
-    if pedir_sim_ou_nao('Deseja depositar? '):
-        valor = float(input('Digite o valor: R$ '))
-        return depositar(saldo=saldo, dep=valor)
-    
-    print('OK! Depósito cancelado.')
-    return saldo 
-
-def pergunta_saque(saldo):
-    if pedir_sim_ou_nao('Deseja sacar? '):
-        valor = float(input('Digite o valor: R$ '))
-        return saque(saldo=saldo, saq=valor)
-    
-    print('Ok! Saque cancelado.')
-    return saldo  
